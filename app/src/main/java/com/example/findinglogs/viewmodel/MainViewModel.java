@@ -35,6 +35,12 @@ public class MainViewModel extends AndroidViewModel {
         startFetching();
     }
 
+    public void atualizarPagina() {
+        handler.removeCallbacks(fetchRunnable);
+        fetchAllForecasts();
+    }
+
+
     public LiveData<List<Weather>> getWeatherList() {
         return weatherList;
     }
@@ -47,26 +53,36 @@ public class MainViewModel extends AndroidViewModel {
     private void fetchAllForecasts() {
         if (Logger.ISLOGABLE) Logger.d(TAG, "fetchAllForecasts()");
         HashMap<String, String> localizations = mRepository.getLocalizations();
-        List<Weather> updatedList = new ArrayList<>();
+        HashMap<String, Weather> weatherMap = new HashMap<>();
+        final int total = localizations.size();
+        final int[] count = {0};
 
         for (String latlon : localizations.values()) {
             mRepository.retrieveForecast(latlon, new WeatherCallback() {
                 @Override
                 public void onSuccess(Weather result) {
-                    updatedList.add(result);
-                    if (updatedList.size() == localizations.size()) {
-                        _weatherList.setValue(updatedList);
+                    count[0]++;
+                    weatherMap.put(result.getName(), result);
+
+                    if (count[0] == total) {
+                        _weatherList.setValue(new ArrayList<>(weatherMap.values()));
                         handler.postDelayed(fetchRunnable, FETCH_INTERVAL);
                     }
                 }
 
                 @Override
                 public void onFailure(String error) {
-                    handler.postDelayed(fetchRunnable, FETCH_INTERVAL);
+                    count[0]++;
+                    if (count[0] == total) {
+                        _weatherList.setValue(new ArrayList<>(weatherMap.values()));
+                        handler.postDelayed(fetchRunnable, FETCH_INTERVAL);
+                    }
                 }
             });
         }
     }
+
+
 
     @Override
     protected void onCleared() {
