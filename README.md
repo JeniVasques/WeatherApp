@@ -1,4 +1,16 @@
 Weather App - Desafio
+AVISO 
+## Configuração da API Key para OpenWeather
+
+Para que o app funcione corretamente, é necessário configurar a chave da API do OpenWeather.
+
+Siga os passos:
+
+1. Crie (ou edite) o arquivo `local.properties` na raiz do projeto Android (no mesmo nível do `build.gradle`).
+
+2. Adicione a linha abaixo com sua chave pessoal da API (substitua pelo seu valor):
+
+WEATHER_API_KEY=Sua_Chave_Do_OpenWeather_Aqui
 
 Este projeto é um aplicativo simples que exibe informações meteorológicas utilizando a API OpenWeather. Ele foi desenvolvido para cumprir os requisitos do desafio proposto e corrigir bugs existentes.
 
