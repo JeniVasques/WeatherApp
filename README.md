@@ -2,6 +2,8 @@ Weather App - Desafio
 
 Este projeto é um aplicativo simples que exibe informações meteorológicas utilizando a API OpenWeather. Ele foi desenvolvido para cumprir os requisitos do desafio proposto e corrigir bugs existentes.
 
+Primeiro clonei pelo Android Studio o repositorio do desafio e depois comecei a mexer no codigo.
+
 O que foi implementado
 Arquitetura MVVM para melhor organização do código e separação de responsabilidades.
 
