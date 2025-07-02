@@ -34,7 +34,8 @@ public class MainViewModel extends AndroidViewModel {
         mRepository = new Repository(application);
         startFetching();
     }
-
+    
+    //Implementação do botão de Atualizar os dados do Clima
     public void atualizarPagina() {
         handler.removeCallbacks(fetchRunnable);
         fetchAllForecasts();
